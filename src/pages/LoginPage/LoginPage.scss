@@ -12,22 +12,6 @@
     margin-bottom: 50px;
   }
 
-  input {
-    display: block;
-    width: 100%;
-    margin-bottom: 20px;
-    border: 2px solid var(--disabled-bgc);
-    background-color: transparent;
-
-    &:last-child {
-      margin-bottom: 40px;
-    }
-
-    &:is(:hover, :focus) {
-      border-color: var(--prime-color);
-    }
-  }
-
   button {
     width: 100%;
     margin-bottom: 30px;

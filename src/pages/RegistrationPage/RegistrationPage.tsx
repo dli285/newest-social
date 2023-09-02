@@ -14,7 +14,7 @@ export const RegistartionPage = () => {
           <AppInput type="password" inputPlaceholder="Пароль" />
           <button>Войти</button>
         </form>
-        <a href="#">Уже зарегистрированы? Войдите в приложение.</a>
+        <a href="/">Уже зарегистрированы? Войдите в приложение.</a>
       </div>
       </Container>
     );

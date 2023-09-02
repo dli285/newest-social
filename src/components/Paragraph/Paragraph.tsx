@@ -1,4 +1,5 @@
 import React from "react";
+import './Paragraph.scss'
 
 type ParagraphProps = {
     ParagraphText: string
