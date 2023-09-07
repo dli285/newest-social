@@ -1,6 +1,5 @@
 import React from "react";
 import { ThemeInput, ThemeInputError } from "./AppInput.style";
-import { error } from "console";
 
 type  AppInputProps = {
     type: 'tel' | 'password' | 'email' | 'text'

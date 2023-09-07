@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ThemeRegistration } from "./Registration.style";
+
 type SpanProps = {
   SpanText: string
 }
