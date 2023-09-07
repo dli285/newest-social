@@ -1,14 +1,28 @@
 import React from "react";
-import { ThemeInput } from "./AppInput.style";
+import { ThemeInput, ThemeInputError } from "./AppInput.style";
+import { error } from "console";
 
 type  AppInputProps = {
-    type: 'tel' | 'password' | 'email'
+    type: 'tel' | 'password' | 'email' | 'text'
     inputPlaceholder: string
     isError?: boolean
+    errorText?: string
 }
 
-export const AppInput = ({ inputPlaceholder, type, isError }: AppInputProps) => {
+export const AppInput = ({ inputPlaceholder, type, isError, errorText, ...props }: AppInputProps) => {
     return (
-        < ThemeInput type={type} placeholder={inputPlaceholder} isError={isError}/>
+    <>
+        < ThemeInput 
+            type={type} 
+            placeholder={inputPlaceholder} 
+            isError={isError} 
+            {...props}
+        />
+        {isError &&
+        <ThemeInputError isError={isError}>
+            {errorText}
+        </ThemeInputError>
+        }
+    </>
     )
 }

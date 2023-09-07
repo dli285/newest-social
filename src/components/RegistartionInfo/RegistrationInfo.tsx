@@ -1,10 +1,17 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
+type SpanProps = {
+  SpanText: string
+}
 
-export const RegistrationInfo = () => {
+export const RegistrationInfo = ({ SpanText}: SpanProps) => {
+  const location = useLocation()
+  // console.log(location);
+  
     return (
         <div className="registration">
 <span>
-  У вас нет аккаунта? <a href="#">Зарегистрироваться</a>
+  {SpanText} {location.pathname === "/registration" ? <Link to="/">Войти</Link> : <Link to="/registration">Зарегистрироваться</Link>} 
 </span>
 <p>Войти с помощью</p>
 <div className="icons-wrapper">
