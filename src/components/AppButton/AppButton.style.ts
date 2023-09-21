@@ -1,10 +1,6 @@
 import { styled } from "styled-components";
 
-type StyledButton = {
-    isError?:boolean
-}
-
-export const ThemeButton = styled.button<StyledButton>`
+export const ThemeButton = styled.button`
 width: 100%;
 margin-bottom: 30px;
 cursor: pointer;

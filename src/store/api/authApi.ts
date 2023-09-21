@@ -1,0 +1,69 @@
+import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
+import { baseQuery } from "../../utils/baseQuery"
+
+interface GetUserData {
+    status: number
+    message: {
+        mail: string
+        phone_number: string
+        user_id: string
+        name: string
+        reg_date: string
+        city: string
+    }
+}
+
+interface LoginUserPayload {
+    email: string
+    password: string
+}
+
+interface LoginUserData {
+    status:number,
+    user_id: number
+}
+
+interface RegistrationUserPayload {
+    name: string,
+    email: string,
+    password: string,
+    phone_number: string
+    user_city: string
+}
+
+interface RegistrationUserData extends LoginUserData {}
+
+export const authApi = createApi({
+    reducerPath: 'authApi',
+    baseQuery: fetchBaseQuery({baseUrl: baseQuery}),
+    endpoints: builder => ({
+        addUser: builder.mutation<RegistrationUserData, RegistrationUserPayload>({
+            query: (payload) => {
+                return {
+                    url: '/login',
+                    method: 'POST',
+                    body: payload
+                }
+            }
+        }),
+        loginUser: builder.mutation<LoginUserData, LoginUserPayload>({
+            query: (payload) => {
+                return {
+                    url: '/login',
+                    method: 'POST',
+                    body: payload
+                }
+            }
+        }),
+        getUser: builder.query< GetUserData, string>({
+            query: (userId: string) => `/user/${userId}`
+        })
+    })
+})
+
+export const { 
+    useAddUserMutation, 
+    useLoginUserMutation, 
+    useGetUserQuery 
+} = authApi
+

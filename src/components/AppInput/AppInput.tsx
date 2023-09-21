@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeInput, ThemeInputError } from "./AppInput.style";
 
 type  AppInputProps = {
-    type: 'tel' | 'password' | 'email' | 'text'
+    type: 'tel' | 'password' | 'email' | 'text' | 'city'
     inputPlaceholder: string
     isError?: boolean
     errorText?: string

@@ -1,9 +1,6 @@
 import { styled } from "styled-components";
 
-type RegistrationComponent = {
-    isError?:boolean
-}
-export const ThemeRegistration = styled.input<RegistrationComponent>`
+export const ThemeRegistration = styled.input`
 .registration {
     margin-top: 30px;
     padding-top: 20px;

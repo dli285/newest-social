@@ -2,11 +2,11 @@ import React from "react"
 import { ThemeButton } from "./AppButton.style"
 import { isDisabled } from "@testing-library/user-event/dist/utils"
 
-type AppButtonProps = {
+interface AppButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
     buttonText: string
     isError?: boolean
     isDisabled: boolean
-    type: 'submit'
+    type: 'submit' | 'button'
 }
 
 export const AppButton = ({ buttonText, isDisabled, type, ...props}: AppButtonProps) => {

@@ -8,12 +8,14 @@ import { AppButton } from "../../components/AppButton/AppButton";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { RegistrationInfo } from "../../components/RegistartionInfo/RegistrationInfo";
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useAddUserMutation } from "../../store/api/authApi";
 
 interface RegistrationForm {
   username: string
   userphone: string
   userpassword: string
   useremail: string
+  city: string
 }
 
 const registartionFormSchema = yup.object({
@@ -21,6 +23,7 @@ const registartionFormSchema = yup.object({
   userphone: yup.string().required('Обязательное поле'),
   userpassword: yup.string().required('Обязательное поле'),
   useremail: yup.string().required('Обязательное поле'),
+  city: yup.string().required('Обязательное поле'),
 })
 
 export const RegistartionPage = () => {
@@ -30,13 +33,24 @@ export const RegistartionPage = () => {
       username: '',
       userphone: '',
       userpassword: '',
-      useremail:''
+      useremail:'',
+      city:''
     }
   })
 
   console.log("ERRORS: ", errors);
 
-  const onRegistrationSubmit = (data: any) => console.log(data)
+  const [registerUser] = useAddUserMutation()
+
+  const onRegistrationSubmit = (data: any) => {
+    registerUser({
+      email: data.useremail,
+      name: data.username,
+      phone_number: data.userphone,
+      password: data.userpassword,
+      user_city: data.city
+    })
+  }
 
   return (
     <Container>
@@ -65,8 +79,8 @@ export const RegistartionPage = () => {
             render={({ field }) => <AppInput
               type="password"
               inputPlaceholder="Пароль"
-              isError={errors.userphone ? true : false}
-              errorText={errors.userphone?.message}
+              isError={errors.userpassword ? true : false}
+              errorText={errors.userpassword?.message}
               {...field} />} />
             <Controller name="useremail"
             control={control}
@@ -75,6 +89,14 @@ export const RegistartionPage = () => {
               inputPlaceholder="Email"
               isError={errors.useremail ? true : false}
               errorText={errors.useremail?.message}
+              {...field} />} />
+            <Controller name="city"
+            control={control}
+            render={({ field }) => <AppInput 
+              type="city" 
+              inputPlaceholder="City"
+              isError={errors.city ? true : false}
+              errorText={errors.city?.message}
               {...field} />} />
           <AppButton isDisabled={!!Object.keys(errors).length} type="submit" buttonText="Зарегестрироваться" />
         </form>
