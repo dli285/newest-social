@@ -3,25 +3,25 @@ import { baseQuery } from "../../utils/baseQuery";
 
 interface AddCommentPayload {
     "user_id": number,
-    "main_text": string
+    "post_text": string
 }
 
 interface AddCommentResponse {
     status: number,
-    post_id: number
+    comment_id: number
 }
 
-export const postApi = createApi({
-    reducerPath: 'postApi',
+export const commentApi = createApi({
+    reducerPath: 'commentApi',
     baseQuery: fetchBaseQuery({ baseUrl: baseQuery }),
     endpoints: builder => ({
-        getPostList: builder.query({
+        getCommentList: builder.query({
             query: () => '/comment'
         }),
-        getPostItem: builder.query({
+        getPostComment: builder.query({
             query: (CommentId: number) => `/comment/${CommentId}`
         }),
-        addNewPost: builder.mutation<AddCommentResponse, AddCommentPayload>({
+        addNewComment: builder.mutation<AddCommentResponse, AddCommentPayload>({
             query: (payload) => {
                 return {
                     url: '/comment',
@@ -34,7 +34,7 @@ export const postApi = createApi({
 })
 
 export const {
-    useLazyGetPostListQuery,
-    useGetPostItemQuery,
-    useAddNewPostMutation
-} = postApi
+    useLazyGetCommentListQuery,
+    useGetPostCommentQuery,
+    useAddNewCommentMutation
+} = commentApi

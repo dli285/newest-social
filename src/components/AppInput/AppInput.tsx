@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeInput, ThemeInputError } from "./AppInput.style";
 
-type  AppInputProps = {
+interface AppInputProps extends React.InputHTMLAttributes<HTMLInputElement>  {
     type: 'tel' | 'password' | 'email' | 'text' | 'city'
     inputPlaceholder: string
     isError?: boolean

@@ -1,7 +1,11 @@
 import React from "react";
 import { Icon } from "../UI/Header/icon/icon";
 
-export const Comment = () => {
+interface postCommentProps  {
+    commentText: string
+}
+
+export const Comment = ({commentText}: postCommentProps) => {
     return (
         <div className="CommentBlock">
         <img src="./img/users/aleksandr-maykov.jpeg" alt="User" />
@@ -9,10 +13,10 @@ export const Comment = () => {
           <a href="#" className="comment__owner">
             Карина Савина
           </a>
-          <p className="comment__text">Это текст комментария...</p>
-          <a href="#" className="reply">
+          <p className="comment__text">{commentText}</p>
+          <span className="reply">
             Ответить
-          </a>
+          </span>
         </div>
         <span className="date">25 марта</span>
         <Icon name="like" padding="10" borderRadius="10"/>

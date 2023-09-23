@@ -8,9 +8,11 @@ import { Comment } from "../CommentApi/Comment";
 interface PostProps {
   userName: string
   postDate: string
-  photos: Array<string>
+  photos: Array<{ id: number, photo_url: string}>
   postText: string
   postId: string
+  commentsText: Array<string>
+  onAddComment: (postId: string) => void
 }
 
 export const Post = ({
@@ -18,7 +20,9 @@ export const Post = ({
   postDate,
   postText,
   photos,
-  postId
+  postId,
+  commentsText,
+  onAddComment
  }: PostProps) => {
   const [isMenuOpen, toggleMenu] = useState<boolean>(false)
 
@@ -58,7 +62,7 @@ export const Post = ({
      {photos.length && <div className="media-container">
        {photos.map((photo) =>(<img
           className="media__item"
-          src={photo}
+          src={photo.photo_url}
           alt="Post Item"
         />))}
       </div>}
@@ -67,7 +71,7 @@ export const Post = ({
           <span className="count likes-count">-500</span>
           <Icon name="like" padding="10" borderRadius="10"/>
         </div>
-        <div className="icon-wrapper comment">
+        <div className="icon-wrapper comment" onClick={() => onAddComment(postId)}>
           <span className="count comments-count">500</span>
           <Icon name="comment" padding="10" borderRadius="10"/>
         </div>
@@ -78,7 +82,14 @@ export const Post = ({
           <Icon name="mark" padding="10" borderRadius="10"/>
         </div>
       </div>
-      <Comment/>
+      <div className="CommentBlock">
+        {
+          commentsText.length && commentsText.map((comment, idx)=>
+          (<Comment key={`comment-${comment}-${idx}`} commentText={comment}/>
+          ))
+        
+        }
+      </div>
       <span onClick={() => toggleMenu(!isMenuOpen)}>
           <Icon name="more" padding="10" borderRadius="10"/>     
       </span>

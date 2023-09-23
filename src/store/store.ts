@@ -3,6 +3,7 @@ import userSlice from "./userSlice";
 import { authApi } from "./api/authApi";
 import { postApi } from "./api/postApi";
 import { fileApi } from "./api/fileApi";
+import { commentApi } from "./api/commentApi";
 
 export const store = configureStore({
     reducer: {
@@ -10,11 +11,13 @@ export const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
         [postApi.reducerPath]: postApi.reducer,
         [fileApi.reducerPath]: fileApi.reducer,
+        [commentApi.reducerPath]: commentApi.reducer,
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat([
         authApi.middleware,
         postApi.middleware,
         fileApi.middleware,
+        commentApi.middleware,
     ])
 })
 
