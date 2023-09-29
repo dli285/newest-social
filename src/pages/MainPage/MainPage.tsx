@@ -1,36 +1,55 @@
-import React, {useEffect, useState} from "react";
-import "./MainPage.scss";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { Container } from "../../components/Container/Container";
-import { Post } from "../../components/Post/Post";
-import { useLazyGetPostListQuery } from "../../store/api/postApi";
-import { number, string } from "yup";
-import { Subscriptions } from "../../components/Subscriptions/Subscriptions";
 import { LeftNavigation } from "../../components/LeftNavigation/LeftNavigation";
 import { MusicBlock } from "../../components/MusicBlock/MusicBlock";
 import { NewPostSection } from "../../components/NewPostSection/NewPostSection";
-import { combineReducers } from "@reduxjs/toolkit";
+import { Post } from "../../components/Post/Post";
+import { Subscriptions } from "../../components/Subscriptions/Subscriptions";
 import { AppModal } from "../../components/UI/Header/AppModal/AppModal";
+import { useAddNewCommentMutation } from "../../store/api/commentApi";
+import { useLazyGetPostListQuery } from "../../store/api/postApi";
+import "./MainPage.scss";
+import { FriendList } from "../../components/FriendList/FriendList";
 
 export const MainPage = () => {
   const [filteredPosts, setFilteredPosts] = useState([])
   const [fetchTrigger, { data, isError, isLoading, isSuccess }] = useLazyGetPostListQuery()
   const [isModalOpen, toggleModal] = useState<boolean>(false)
   const [newComment, setNewComment] = useState<string>("")
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null)
+  const [postNewComment] = useAddNewCommentMutation()
   
   useEffect(() => {
     fetchTrigger(null)
   }, [fetchTrigger])
   
-  useEffect(() => {
-    setFilteredPosts(data?.message?.reverse())
+  useLayoutEffect(() => {
+    if (data?.message?.length){
+      setFilteredPosts(data?.message)
+      console.log(filteredPosts)
+    }
   }, [data])
   
   const handleAddNewPost = () => {
     fetchTrigger(null)
   }
 
-  const addNewComment = () => {
-    
+  const openCommentsModal = (postId: string) => {
+    setSelectedPostId(postId)
+    toggleModal(true)
+  }
+
+  const addNewComment = async () => {
+    if (selectedPostId) {
+      const commentData = {
+        user_id: 1,
+        post_id: selectedPostId,
+        text: newComment
+      }
+      await postNewComment(commentData)
+      fetchTrigger(null)
+      toggleModal(false)
+    }
   }
 
   return (
@@ -155,7 +174,7 @@ export const MainPage = () => {
           </div>
           {isError && <h1>Произошла ошибка</h1>}
           {isLoading && <h1>Загрузка</h1>}
-          {isSuccess && !!filteredPosts?.length &&
+          {isSuccess && Array.isArray(filteredPosts) && filteredPosts?.length > 0 &&
             filteredPosts?.map((post: any) =>
               <Post
                 key={post.id}
@@ -170,36 +189,7 @@ export const MainPage = () => {
           }
         </main>
         <aside className="RightSide">
-          <div className="List">
-            <div className="List__title">
-              <h2>Близкие друзья</h2>
-              <span className="count">123</span>
-            </div>
-            <div className="UserElem">
-              <img src="./img/users/aleksandr-maykov.jpeg" alt="User" />
-              <div className="user__description">
-                <p className="main__text">Александр Майков</p>
-                <p className="secondary__text _online">Онлайн</p>
-              </div>
-              <span className="Badge">3</span>
-            </div>
-            <div className="UserElem">
-              <img src="./img/users/aleksandr-maykov.jpeg" alt="User" />
-              <div className="user__description">
-                <p className="main__text">Александр Майков</p>
-                <p className="secondary__text _online">Онлайн</p>
-              </div>
-              <span className="Badge">3</span>
-            </div>
-            <div className="UserElem">
-              <img src="./img/users/aleksandr-maykov.jpeg" alt="User" />
-              <div className="user__description">
-                <p className="main__text">Александр Майков</p>
-                <p className="secondary__text _online">Онлайн</p>
-              </div>
-              <span className="Badge">3</span>
-            </div>
-          </div>
+          <FriendList/>
           <MusicBlock/>
         </aside>
       </div>

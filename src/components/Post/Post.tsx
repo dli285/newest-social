@@ -69,7 +69,7 @@ export const Post = ({
       <div className="PostControls">
         <div className="icon-wrapper like">
           <span className="count likes-count">-500</span>
-          <Icon name="like" padding="10" borderRadius="10"/>
+          <Icon name="heart" padding="10" borderRadius="10"/>
         </div>
         <div className="icon-wrapper comment" onClick={() => onAddComment(postId)}>
           <span className="count comments-count">500</span>

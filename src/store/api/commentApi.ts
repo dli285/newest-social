@@ -2,8 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { baseQuery } from "../../utils/baseQuery";
 
 interface AddCommentPayload {
-    "user_id": number,
-    "post_text": string
+    user_id: number,
+    post_id: string,
+    text: string
 }
 
 interface AddCommentResponse {

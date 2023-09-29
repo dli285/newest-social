@@ -19,7 +19,7 @@ export const Comment = ({commentText}: postCommentProps) => {
           </span>
         </div>
         <span className="date">25 марта</span>
-        <Icon name="like" padding="10" borderRadius="10"/>
+        <Icon name="heart" padding="2" borderRadius="10"/>
       </div>
     )
 }

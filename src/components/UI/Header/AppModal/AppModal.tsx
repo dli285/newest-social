@@ -5,7 +5,7 @@ import { AppInput } from "../../../AppInput/AppInput";
 import { AppButton } from "../../../AppButton/AppButton";
 
 const customStyles = {
-
+    
 }
 
 interface AppModalProps {
