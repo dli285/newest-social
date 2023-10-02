@@ -14,11 +14,11 @@ export const AppInput = ({ inputPlaceholder, type, isError, errorText, ...props 
         < ThemeInput 
             type={type} 
             placeholder={inputPlaceholder} 
-            isError={isError} 
+            $isError={isError} 
             {...props}
         />
         {isError &&
-        <ThemeInputError isError={isError}>
+        <ThemeInputError $isError={isError}>
             {errorText}
         </ThemeInputError>
         }
